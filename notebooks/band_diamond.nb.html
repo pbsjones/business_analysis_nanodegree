@@ -1703,34 +1703,46 @@ $(document).ready(function () {
 </div>
 <div id="step-1-understanding-the-model" class="section level2">
 <h2>Step 1: Understanding the Model</h2>
-<div id="according-to-the-linear-model-provided-if-a-diamond-is-1-carat-heavier-than-another-with-the-same-cut-and-clarity-how-much-more-should-we-expect-to-pay-why" class="section level3">
-<h3>According to the linear model provided, if a diamond is 1 carat heavier than another with the same cut and clarity, how much more should we expect to pay? Why?</h3>
+<div id="according-to-the-linear-model-provided-if-a-diamond-is-1-carat-heavier-than-another-with-the-same-cut-and-clarity-how-much-more-should-we-expect-to-pay-why" class="section level4">
+<h4>According to the linear model provided, if a diamond is 1 carat heavier than another with the same cut and clarity, how much more should we expect to pay? Why?</h4>
+<p>With the given model, an increase of 1 unit in carat while holding all other covariates the same would increase the retail price of the diamond by $8413. The given linear model coefficient for carat indicates this level of increase.</p>
 </div>
-<div id="if-you-were-interested-in-a-1.5-carat-diamond-with-a-very-good-cut-represented-by-a-3-in-the-model-and-a-vs2-clarity-rating-represented-by-a-5-in-the-model-how-much-would-the-model-predict-you-should-pay-for-it" class="section level3">
-<h3>If you were interested in a 1.5 carat diamond with a Very Good cut (represented by a 3 in the model) and a VS2 clarity rating (represented by a 5 in the model), how much would the model predict you should pay for it?</h3>
+<div id="if-you-were-interested-in-a-1.5-carat-diamond-with-a-very-good-cut-represented-by-a-3-in-the-model-and-a-vs2-clarity-rating-represented-by-a-5-in-the-model-how-much-would-the-model-predict-you-should-pay-for-it" class="section level4">
+<h4>If you were interested in a 1.5 carat diamond with a Very Good cut (represented by a 3 in the model) and a VS2 clarity rating (represented by a 5 in the model), how much would the model predict you should pay for it?</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpY2VcblxuYGBgIn0= -->
+<pre class="r"><code>price
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEwMDk0LjhcbiJ9 -->
+<pre><code>[1] 10094.8</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 </div>
 </div>
 <div id="step-2-visualize-the-data" class="section level2">
 <h2>Step 2: Visualize the Data</h2>
-<div id="plot-1---plot-the-data-for-the-diamonds-in-the-database-with-carat-on-the-x-axis-and-price-on-the-y-axis." class="section level3">
-<h3>Plot 1 - Plot the data for the diamonds in the database, with carat on the x-axis and price on the y-axis.</h3>
+<div id="plot-1---plot-the-data-for-the-diamonds-in-the-database-with-carat-on-the-x-axis-and-price-on-the-y-axis." class="section level4">
+<h4>Plot 1 - Plot the data for the diamonds in the database, with carat on the x-axis and price on the y-axis.</h4>
 </div>
-<div id="plot-2---plot-the-data-for-the-diamonds-for-which-you-are-predicting-prices-with-carat-on-the-x-axis-and-predicted-price-on-the-y-axis." class="section level3">
-<h3>Plot 2 - Plot the data for the diamonds for which you are predicting prices with carat on the x-axis and predicted price on the y-axis.</h3>
+<div id="plot-2---plot-the-data-for-the-diamonds-for-which-you-are-predicting-prices-with-carat-on-the-x-axis-and-predicted-price-on-the-y-axis." class="section level4">
+<h4>Plot 2 - Plot the data for the diamonds for which you are predicting prices with carat on the x-axis and predicted price on the y-axis.</h4>
 </div>
-<div id="what-strikes-you-about-this-comparison-after-seeing-this-plot-do-you-feel-confident-in-the-models-ability-to-predict-prices" class="section level3">
-<h3>What strikes you about this comparison? After seeing this plot, do you feel confident in the model’s ability to predict prices?</h3>
+<div id="what-strikes-you-about-this-comparison-after-seeing-this-plot-do-you-feel-confident-in-the-models-ability-to-predict-prices" class="section level4">
+<h4>What strikes you about this comparison? After seeing this plot, do you feel confident in the model’s ability to predict prices?</h4>
 </div>
 </div>
 <div id="step-3-make-a-recommendation" class="section level2">
 <h2>Step 3: Make a Recommendation</h2>
-<div id="what-price-do-you-recommend-the-jewelry-company-to-bid-please-explain-how-you-arrived-at-that-number.-hint-the-number-should-be-7-digits." class="section level3">
-<h3>What price do you recommend the jewelry company to bid? Please explain how you arrived at that number. HINT: The number should be 7 digits.</h3>
+<div id="what-price-do-you-recommend-the-jewelry-company-to-bid-please-explain-how-you-arrived-at-that-number.-hint-the-number-should-be-7-digits." class="section level4">
+<h4>What price do you recommend the jewelry company to bid? Please explain how you arrived at that number. HINT: The number should be 7 digits.</h4>
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiVWRhY2l0eSBCQU5EIHwgUHJlZGljdGluZyBkaWFtb25kIHByaWNlcyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMjIEdpdmVuIG1vZGVsClByaWNlID0gLTUsMjY5ICsgOCw0MTMgeCBDYXJhdCArIDE1OC4xIHggQ3V0ICsgNDU0IHggQ2xhcml0eQoKU3VibWl0IGhlcmU6IGh0dHBzOi8vY2xhc3Nyb29tLnVkYWNpdHkuY29tL25hbm9kZWdyZWVzL25kMDA4L3BhcnRzLzIzNWE1NDA4LTA2MDQtNDg3MS04NDMzLWE2ZDY3MGUzN2JiZi9wcm9qZWN0IwoKIyMgU3RlcCAxOiBVbmRlcnN0YW5kaW5nIHRoZSBNb2RlbCAKIyMjIEFjY29yZGluZyB0byB0aGUgbGluZWFyIG1vZGVsIHByb3ZpZGVkLCBpZiBhIGRpYW1vbmQgaXMgMSBjYXJhdCBoZWF2aWVyIHRoYW4gYW5vdGhlciB3aXRoIHRoZSBzYW1lIGN1dCBhbmQgY2xhcml0eSwgaG93IG11Y2ggbW9yZSBzaG91bGQgd2UgZXhwZWN0IHRvIHBheT8gV2h5PwoKIyMjIElmIHlvdSB3ZXJlIGludGVyZXN0ZWQgaW4gYSAxLjUgY2FyYXQgZGlhbW9uZCB3aXRoIGEgVmVyeSBHb29kIGN1dCAocmVwcmVzZW50ZWQgYnkgYSAzIGluIHRoZSBtb2RlbCkgYW5kIGEgVlMyIGNsYXJpdHkgcmF0aW5nIChyZXByZXNlbnRlZCBieSBhIDUgaW4gdGhlIG1vZGVsKSwgaG93IG11Y2ggd291bGQgdGhlIG1vZGVsIHByZWRpY3QgeW91IHNob3VsZCBwYXkgZm9yIGl0PwoKIyMgU3RlcCAyOiBWaXN1YWxpemUgdGhlIERhdGEgCiMjIyBQbG90IDEgLSBQbG90IHRoZSBkYXRhIGZvciB0aGUgZGlhbW9uZHMgaW4gdGhlIGRhdGFiYXNlLCB3aXRoIGNhcmF0IG9uIHRoZSB4LWF4aXMgYW5kIHByaWNlIG9uIHRoZSB5LWF4aXMuIAojIyMgUGxvdCAyIC0gUGxvdCB0aGUgZGF0YSBmb3IgdGhlIGRpYW1vbmRzIGZvciB3aGljaCB5b3UgYXJlIHByZWRpY3RpbmcgcHJpY2VzIHdpdGggY2FyYXQgb24gdGhlIHgtYXhpcyBhbmQgcHJlZGljdGVkIHByaWNlIG9uIHRoZSB5LWF4aXMuIAoKIyMjIFdoYXQgc3RyaWtlcyB5b3UgYWJvdXQgdGhpcyBjb21wYXJpc29uPyBBZnRlciBzZWVpbmcgdGhpcyBwbG90LCBkbyB5b3UgZmVlbCBjb25maWRlbnQgaW4gdGhlIG1vZGVs4oCZcyBhYmlsaXR5IHRvIHByZWRpY3QgcHJpY2VzPyAKCiMjIFN0ZXAgMzogTWFrZSBhIFJlY29tbWVuZGF0aW9uCiMjIyBXaGF0IHByaWNlIGRvIHlvdSByZWNvbW1lbmQgdGhlIGpld2VscnkgY29tcGFueSB0byBiaWQ/IFBsZWFzZSBleHBsYWluIGhvdyB5b3UgYXJyaXZlZCBhdCB0aGF0IG51bWJlci4gSElOVDogVGhlIG51bWJlciBzaG91bGQgYmUgNyBkaWdpdHMu</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiVWRhY2l0eSBCQU5EIHwgUHJlZGljdGluZyBkaWFtb25kIHByaWNlcyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMjIEdpdmVuIG1vZGVsClByaWNlID0gLTUsMjY5ICsgOCw0MTMgeCBDYXJhdCArIDE1OC4xIHggQ3V0ICsgNDU0IHggQ2xhcml0eQoKU3VibWl0IGhlcmU6IGh0dHBzOi8vY2xhc3Nyb29tLnVkYWNpdHkuY29tL25hbm9kZWdyZWVzL25kMDA4L3BhcnRzLzIzNWE1NDA4LTA2MDQtNDg3MS04NDMzLWE2ZDY3MGUzN2JiZi9wcm9qZWN0IwoKIyMgU3RlcCAxOiBVbmRlcnN0YW5kaW5nIHRoZSBNb2RlbCAKIyMjIyBBY2NvcmRpbmcgdG8gdGhlIGxpbmVhciBtb2RlbCBwcm92aWRlZCwgaWYgYSBkaWFtb25kIGlzIDEgY2FyYXQgaGVhdmllciB0aGFuIGFub3RoZXIgd2l0aCB0aGUgc2FtZSBjdXQgYW5kIGNsYXJpdHksIGhvdyBtdWNoIG1vcmUgc2hvdWxkIHdlIGV4cGVjdCB0byBwYXk/IFdoeT8KV2l0aCB0aGUgZ2l2ZW4gbW9kZWwsIGFuIGluY3JlYXNlIG9mIDEgdW5pdCBpbiBjYXJhdCB3aGlsZSBob2xkaW5nIGFsbCBvdGhlciBjb3ZhcmlhdGVzIHRoZSBzYW1lIHdvdWxkIGluY3JlYXNlIHRoZSByZXRhaWwgcHJpY2Ugb2YgdGhlIGRpYW1vbmQgYnkgJDg0MTMuIFRoZSBnaXZlbiBsaW5lYXIgbW9kZWwgY29lZmZpY2llbnQgZm9yIGNhcmF0IGluZGljYXRlcyB0aGlzIGxldmVsIG9mIGluY3JlYXNlLgoKIyMjIyBJZiB5b3Ugd2VyZSBpbnRlcmVzdGVkIGluIGEgMS41IGNhcmF0IGRpYW1vbmQgd2l0aCBhIFZlcnkgR29vZCBjdXQgKHJlcHJlc2VudGVkIGJ5IGEgMyBpbiB0aGUgbW9kZWwpIGFuZCBhIFZTMiBjbGFyaXR5IHJhdGluZyAocmVwcmVzZW50ZWQgYnkgYSA1IGluIHRoZSBtb2RlbCksIGhvdyBtdWNoIHdvdWxkIHRoZSBtb2RlbCBwcmVkaWN0IHlvdSBzaG91bGQgcGF5IGZvciBpdD8KYGBge3IsIGVjaG8gPSBUUlVFfQpwcmljZSA8LSAtNTI2OSArICggODQxMyAqIDEuNSApICsgKCAxNTguMSAqIDMgKSArICggNDU0ICogNSApCnByaWNlCmBgYAoKIyMgU3RlcCAyOiBWaXN1YWxpemUgdGhlIERhdGEgCiMjIyMgUGxvdCAxIC0gUGxvdCB0aGUgZGF0YSBmb3IgdGhlIGRpYW1vbmRzIGluIHRoZSBkYXRhYmFzZSwgd2l0aCBjYXJhdCBvbiB0aGUgeC1heGlzIGFuZCBwcmljZSBvbiB0aGUgeS1heGlzLiAKIyMjIyBQbG90IDIgLSBQbG90IHRoZSBkYXRhIGZvciB0aGUgZGlhbW9uZHMgZm9yIHdoaWNoIHlvdSBhcmUgcHJlZGljdGluZyBwcmljZXMgd2l0aCBjYXJhdCBvbiB0aGUgeC1heGlzIGFuZCBwcmVkaWN0ZWQgcHJpY2Ugb24gdGhlIHktYXhpcy4gCgojIyMjIFdoYXQgc3RyaWtlcyB5b3UgYWJvdXQgdGhpcyBjb21wYXJpc29uPyBBZnRlciBzZWVpbmcgdGhpcyBwbG90LCBkbyB5b3UgZmVlbCBjb25maWRlbnQgaW4gdGhlIG1vZGVs4oCZcyBhYmlsaXR5IHRvIHByZWRpY3QgcHJpY2VzPyAKCiMjIFN0ZXAgMzogTWFrZSBhIFJlY29tbWVuZGF0aW9uCiMjIyMgV2hhdCBwcmljZSBkbyB5b3UgcmVjb21tZW5kIHRoZSBqZXdlbHJ5IGNvbXBhbnkgdG8gYmlkPyBQbGVhc2UgZXhwbGFpbiBob3cgeW91IGFycml2ZWQgYXQgdGhhdCBudW1iZXIuIEhJTlQ6IFRoZSBudW1iZXIgc2hvdWxkIGJlIDcgZGlnaXRzLg==</div>
 
 
 
