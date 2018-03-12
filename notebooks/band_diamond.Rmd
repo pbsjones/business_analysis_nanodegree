@@ -1,0 +1,23 @@
+---
+title: "Udacity BAND | Predicting diamond prices"
+output: html_notebook
+---
+
+### Given model
+Price = -5,269 + 8,413 x Carat + 158.1 x Cut + 454 x Clarity
+
+Submit here: https://classroom.udacity.com/nanodegrees/nd008/parts/235a5408-0604-4871-8433-a6d670e37bbf/project#
+
+## Step 1: Understanding the Model 
+### According to the linear model provided, if a diamond is 1 carat heavier than another with the same cut and clarity, how much more should we expect to pay? Why?
+
+### If you were interested in a 1.5 carat diamond with a Very Good cut (represented by a 3 in the model) and a VS2 clarity rating (represented by a 5 in the model), how much would the model predict you should pay for it?
+
+## Step 2: Visualize the Data 
+### Plot 1 - Plot the data for the diamonds in the database, with carat on the x-axis and price on the y-axis. 
+### Plot 2 - Plot the data for the diamonds for which you are predicting prices with carat on the x-axis and predicted price on the y-axis. 
+
+### What strikes you about this comparison? After seeing this plot, do you feel confident in the model’s ability to predict prices? 
+
+## Step 3: Make a Recommendation
+### What price do you recommend the jewelry company to bid? Please explain how you arrived at that number. HINT: The number should be 7 digits.
