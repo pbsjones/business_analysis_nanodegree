@@ -52,3 +52,54 @@ ggplot() +
   theme_classic()
 ```
 
+```{r}
+fit <- lm( ticket_amt_no
+     ~ employee_amt_no
+     + contract_value_no
+     , data = df )
+```
+
+```{r}
+summary( fit )
+```
+
+```{r}
+summary( fit )$r.squared
+```
+
+
+```{r}
+df$t_pred <- ( 0.1019 * df$employee_amt_no ) + ( 0.0006684 * df$contract_value_no ) - 24.27
+```
+
+```{r}
+head(df)
+```
+
+```{r}
+ggplot() +
+  geom_point( data = df, aes( x = ticket_amt_no, y = t_pred ) ) +
+  theme_classic()
+```
+
+```{r}
+( 0.1019 * 750 ) + ( 0.0006684 * 13000) - 24.27
+```
+
+```{r}
+fit <- lm( df$ticket_amt_no
+    ~ df$employee_amt_no )
+```
+
+```{r}
+ggplot() +
+  geom_point( data = fit, aes( x = predict( fit ), y = df$ticket_amt_no ) ) +
+  geom_smooth( data = fit, aes( x = predict( fit ), y = df$ticket_amt_no ), se = FALSE, method = 'lm' ) +
+  geom_line( aes( x = 0:100, y = 0:100 ) )  +
+  theme_classic()
+```
+
+```{r}
+-468 + (0.067 * 5889) + (1349 * 0.318) - (14.4 * 0) - (9.3 * 0) + (16.5 * 0)
+```
+
