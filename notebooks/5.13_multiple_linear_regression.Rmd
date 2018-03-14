@@ -1,0 +1,54 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r libraries }
+library(tidyverse)
+```
+
+```{r data }
+df <- readxl::read_excel('../data/raw/linear-example-data_2.xlsx')
+```
+
+```{r}
+head( df )
+```
+
+```{r}
+names( df ) <- c( 'ticket_amt_no'
+                  , 'employee_amt_no'
+                  , 'contract_value_no'
+                  , 'industry_txt' )
+```
+
+
+```{r}
+ggplot() +
+  geom_point( data = df
+              , aes( x = contract_value_no
+                     , y = ticket_amt_no ) ) +
+  theme_classic()
+```
+
+```{r}
+fit <- lm( df$ticket_amt_no
+    ~ df$contract_value_no )
+```
+
+```{r}
+summary( fit )
+```
+
+```{r}
+a <- c( 0:100000 )
+b <- ( 0.001201 * a ) -27.48
+df.line <- data.frame( cbind( a, b ) )
+```
+
+```{r}
+ggplot() +
+  geom_point( data = df, aes( x = contract_value_no, y = ticket_amt_no ) ) +
+  geom_line( data = df.line, aes( x = a, y = b ) ) +
+  theme_classic()
+```
+

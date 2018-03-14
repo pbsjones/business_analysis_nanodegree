@@ -1,0 +1,70 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r libraries }
+
+```
+
+```{r}
+df <- readxl::read_excel('../data/raw/simple-linear-regression.xlsx')
+```
+
+```{r}
+head( df )
+```
+
+```{r}
+names( df ) <- c( 'employee_amt_no'
+                  , 'ticket_avg_no' )
+```
+
+```{r}
+fit <- lm( df$ticket_avg_no
+    ~ df$employee_amt_no )
+```
+
+```{r}
+summary( fit )
+```
+
+```{r}
+ggplot( df, aes( x = employee_amt_no, y = ticket_avg_no ) ) +
+  geom_point() +
+  theme_bw()
+```
+
+```{r}
+summary( fit )$r.squared
+```
+
+```{r}
+( 0.18174*525 ) - 7.54648
+```
+
+```{r}
+a <- c( 0:600 )
+b <- ( 0.18174*a ) - 7.54648
+
+df.line <- data.frame( cbind( a, b ) )
+```
+
+```{r}
+ggplot( df.line, aes( x = a, y = b ) ) +
+  geom_line() +
+  theme_classic()
+```
+
+```{r}
+ggplot() +
+  geom_point( data = df, aes( x = employee_amt_no, y = ticket_avg_no ) ) +
+  geom_line( data = df.line, aes( x = a, y = b ) ) +
+  theme_classic()
+```
+
+```{r}
+ggplot() +
+  geom_point( data = df, aes( x = ))
+```
+
