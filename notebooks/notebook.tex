@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{project\_diamond\_prediction}
+    \title{project\_1\_mail\_catalog}
     
     
     
@@ -280,238 +280,560 @@
     
 
     
-    \subsection{Udacity BAND \textbar{} Predicting diamond
-prices}\label{udacity-band-predicting-diamond-prices}
+    \section{Project information:}\label{project-information}
 
-    \subsubsection{Given model}\label{given-model}
+\subsubsection{Student: Peter Jones}\label{student-peter-jones}
 
-    Price = -5,269 + 8,413 x Carat + 158.1 x Cut + 454 x Clarity
+\subsubsection{Program: Udacity \textbar{} Business Analyst
+Nanodegree}\label{program-udacity-business-analyst-nanodegree}
 
-    Submit here:
-https://classroom.udacity.com/nanodegrees/nd008/parts/235a5408-0604-4871-8433-a6d670e37bbf/project\#
+\subsubsection{Title: Project 1 \textbar{} Mail catalog ROI predictive
+analysis}\label{title-project-1-mail-catalog-roi-predictive-analysis}
 
-    \subsubsection{Libraries}\label{libraries}
+\subsubsection{Date started: 2018.03.15}\label{date-started-2018.03.15}
+
+    \subsection{Section 1: Business and Data
+Understanding}\label{section-1-business-and-data-understanding}
+
+    \paragraph{Business problem:}\label{business-problem}
+
+You recently started working for a company that manufactures and sells
+high-end home goods. Last year the company sent out its first print
+catalog, and is preparing to send out this year's catalog in the coming
+months. The company has 250 new customers from their mailing list that
+they want to send the catalog to.
+
+Your manager has been asked to determine how much profit the company can
+expect from sending a catalog to these customers. You, the business
+analyst, are assigned to help your manager run the numbers. While fairly
+knowledgeable about data analysis, your manager is not very familiar
+with predictive models.
+
+You've been asked to predict the expected profit from these 250 new
+customers. Management does not want to send the catalog out to these new
+customers unless the expected profit contribution exceeds \$10,000.
+
+Details: - The costs of printing and distributing is \$6.50 per catalog.
+- The average gross margin (price - cost) on all products sold through
+the catalog is 50\%. - Make sure to multiply your revenue by the gross
+margin first before you subtract out the \$6.50 cost when calculating
+your profit. - Write a short report with your recommendations outlining
+your reasons why the company should go with your recommendations to your
+manager.
+
+    \paragraph{What decision needs to be
+made?}\label{what-decision-needs-to-be-made}
+
+The primary decision to be made is whether or not to send a mail catalog
+to new members on the company mailing list. The criteria for this
+decision is an predicted return on investment of \$10,000 or more.
+
+    \subsubsection{What data is needed to inform that
+decision?}\label{what-data-is-needed-to-inform-that-decision}
+
+Data needed are any historical data on the success of past mail catalog
+projects, including who responded, how much they spent, and any other
+covariates thought to be valuable to a prediction and feasible to
+gather.
+
+    \newpage
+
+    \subsection{Section 2: Analysis, Modeling, and
+Validation}\label{section-2-analysis-modeling-and-validation}
+
+    \paragraph{Libraries}\label{libraries}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{library}\PY{p}{(} ggplot2 \PY{p}{)}
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{library}\PY{p}{(} tidyverse \PY{p}{)}
+        \PY{k+kn}{library}\PY{p}{(} GGally \PY{p}{)}
 \end{Verbatim}
 
 
-    \subsection{Step 1: Understanding the
-Model}\label{step-1-understanding-the-model}
+    \begin{Verbatim}[commandchars=\\\{\}]
+── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+✔ ggplot2 2.2.1     ✔ purrr   0.2.4
+✔ tibble  1.3.4     ✔ dplyr   0.7.4
+✔ tidyr   0.7.2     ✔ stringr 1.2.0
+✔ readr   1.1.1     ✔ forcats 0.2.0
+── Conflicts ────────────────────────────────────────── tidyverse\_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
 
-\paragraph{According to the linear model provided, if a diamond is 1
-carat heavier than another with the same cut and clarity, how much more
-should we expect to pay?
-Why?}\label{according-to-the-linear-model-provided-if-a-diamond-is-1-carat-heavier-than-another-with-the-same-cut-and-clarity-how-much-more-should-we-expect-to-pay-why}
+Attaching package: ‘GGally’
 
-    With the given model, an increase of 1 unit in carat while holding all
-other covariates the same would increase the retail price of the diamond
-by \$8413. The given linear model coefficient for carat indicates this
-level of increase.
+The following object is masked from ‘package:dplyr’:
 
-    \paragraph{If you were interested in a 1.5 carat diamond with a Very
-Good cut (represented by a 3 in the model) and a VS2 clarity rating
-(represented by a 5 in the model), how much would the model predict you
-should pay for
-it?}\label{if-you-were-interested-in-a-1.5-carat-diamond-with-a-very-good-cut-represented-by-a-3-in-the-model-and-a-vs2-clarity-rating-represented-by-a-5-in-the-model-how-much-would-the-model-predict-you-should-pay-for-it}
+    nasa
+
+
+    \end{Verbatim}
+
+    \paragraph{Load up data}\label{load-up-data}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} price \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{\PYZhy{}5269} \PY{o}{+} \PY{p}{(} \PY{l+m}{8413} \PY{o}{*} \PY{l+m}{1.5} \PY{p}{)} \PY{o}{+} \PY{p}{(} \PY{l+m}{158.1} \PY{o}{*} \PY{l+m}{3} \PY{p}{)} \PY{o}{+} \PY{p}{(} \PY{l+m}{454} \PY{o}{*} \PY{l+m}{5} \PY{p}{)}
-        price
+{\color{incolor}In [{\color{incolor}2}]:} df.train \PY{o}{\PYZlt{}\PYZhy{}} readxl\PY{o}{::}read\PYZus{}excel\PY{p}{(} \PY{l+s}{\PYZsq{}}\PY{l+s}{../data/raw/p1\PYZhy{}customers.xlsx\PYZsq{}} \PY{p}{)}
+        df.pred \PY{o}{\PYZlt{}\PYZhy{}} readxl\PY{o}{::}read\PYZus{}excel\PY{p}{(} \PY{l+s}{\PYZsq{}}\PY{l+s}{../data/raw/p1\PYZhy{}mailinglist.xlsx\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
-    10094.8
-
-    
-    \subsection{Step 2: Visualize the Data}\label{step-2-visualize-the-data}
-
-    \paragraph{Plot 1 - Plot the data for the diamonds in the database, with
-carat on the x-axis and price on the
-y-axis.}\label{plot-1---plot-the-data-for-the-diamonds-in-the-database-with-carat-on-the-x-axis-and-price-on-the-y-axis.}
+    \paragraph{Munge}\label{munge}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} df \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{../data/processed/diamonds.csv\PYZsq{}}\PY{p}{)}
-        str\PY{p}{(} df \PY{p}{)}
+{\color{incolor}In [{\color{incolor}3}]:} df.train \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{within}\PY{p}{(} df.train\PY{p}{,}\PY{p}{\PYZob{}}
+                Responded\PYZus{}to\PYZus{}Last\PYZus{}Catalog\PY{p}{[}Responded\PYZus{}to\PYZus{}Last\PYZus{}Catalog \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{No\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{0} 
+                Responded\PYZus{}to\PYZus{}Last\PYZus{}Catalog\PY{p}{[}Responded\PYZus{}to\PYZus{}Last\PYZus{}Catalog \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Yes\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{1}
+                Customer\PYZus{}Segment\PY{p}{[}Customer\PYZus{}Segment \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Credit Card Only\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{0}
+                Customer\PYZus{}Segment\PY{p}{[}Customer\PYZus{}Segment \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Loyalty Club and Credit Card\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{1}
+                Customer\PYZus{}Segment\PY{p}{[}Customer\PYZus{}Segment \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Loyalty Club Only\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{2}
+                Customer\PYZus{}Segment\PY{p}{[}Customer\PYZus{}Segment \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Store Mailing List\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{3} \PY{p}{\PYZcb{}}
+                          \PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-'data.frame':	50000 obs. of  8 variables:
- \$ X          : int  1 2 3 4 5 6 7 8 9 10 {\ldots}
- \$ carat      : num  0.51 2.25 0.7 0.47 0.3 0.33 2.01 0.51 1.7 0.53 {\ldots}
- \$ cut        : Factor w/ 5 levels "Fair","Good",..: 4 1 5 2 3 3 5 3 4 4 {\ldots}
- \$ cut\_ord    : int  4 1 3 2 5 5 3 5 4 4 {\ldots}
- \$ color      : Factor w/ 7 levels "D","E","F","G",..: 3 4 2 3 4 1 4 3 1 1 {\ldots}
- \$ clarity    : Factor w/ 8 levels "I1","IF","SI1",..: 5 1 6 5 7 3 3 8 3 6 {\ldots}
- \$ clarity\_ord: int  4 1 5 4 7 3 3 6 3 5 {\ldots}
- \$ price      : int  1749 7069 2757 1243 789 728 18398 2203 15100 1857 {\ldots}
+{\color{incolor}In [{\color{incolor}4}]:} df.train \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{transform}\PY{p}{(} df.train 
+                 \PY{p}{,} Responded\PYZus{}to\PYZus{}Last\PYZus{}Catalog \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(} Responded\PYZus{}to\PYZus{}Last\PYZus{}Catalog 
+                                                     \PY{p}{,} levels \PY{o}{=} \PY{k+kt}{c}\PY{p}{(} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1} \PY{p}{)}
+                                                     \PY{p}{,} labels \PY{o}{=} \PY{k+kt}{c}\PY{p}{(} \PY{l+s}{\PYZsq{}}\PY{l+s}{No response\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Responded \PYZsq{}} \PY{p}{)} 
+                                                     \PY{p}{)}
+                             \PY{p}{,} Store\PYZus{}Number \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(} Store\PYZus{}Number \PY{p}{)}
+                             \PY{p}{,} Customer\PYZus{}Segment \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(} Customer\PYZus{}Segment
+                                                        \PY{p}{,} levels \PY{o}{=} \PY{k+kt}{c}\PY{p}{(} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{p}{,} \PY{l+m}{2}\PY{p}{,} \PY{l+m}{3} \PY{p}{)}
+                                                        \PY{p}{,} labels \PY{o}{=} \PY{k+kt}{c}\PY{p}{(} \PY{l+s}{\PYZsq{}}\PY{l+s}{Credit Card Only\PYZsq{}}
+                                                                    \PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Loyalty Club and Credit Card\PYZsq{}} 
+                                                                    \PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Loyalty Club Only\PYZsq{}}
+                                                                    \PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Store Mailing List\PYZsq{}} \PY{p}{)} \PY{p}{)}
+                              \PY{p}{,} ZIP \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(} ZIP \PY{p}{)} 
+                             \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} df.pred \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{within}\PY{p}{(} df.pred\PY{p}{,}\PY{p}{\PYZob{}}
+                Customer\PYZus{}Segment\PY{p}{[}Customer\PYZus{}Segment \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Credit Card Only\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{0}
+                Customer\PYZus{}Segment\PY{p}{[}Customer\PYZus{}Segment \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Loyalty Club and Credit Card\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{1}
+                Customer\PYZus{}Segment\PY{p}{[}Customer\PYZus{}Segment \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Loyalty Club Only\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{2}
+                Customer\PYZus{}Segment\PY{p}{[}Customer\PYZus{}Segment \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Store Mailing List\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{3} \PY{p}{\PYZcb{}}
+                          \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} df.pred \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{transform}\PY{p}{(} df.pred
+                 \PY{p}{,} Store\PYZus{}Number \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(} Store\PYZus{}Number \PY{p}{)}
+                 \PY{p}{,} Customer\PYZus{}Segment \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(} Customer\PYZus{}Segment
+                                                        \PY{p}{,} levels \PY{o}{=} \PY{k+kt}{c}\PY{p}{(} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{p}{,} \PY{l+m}{2}\PY{p}{,} \PY{l+m}{3} \PY{p}{)}
+                                                        \PY{p}{,} labels \PY{o}{=} \PY{k+kt}{c}\PY{p}{(} \PY{l+s}{\PYZsq{}}\PY{l+s}{Credit Card Only\PYZsq{}}
+                                                                    \PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Loyalty Club and Credit Card\PYZsq{}} 
+                                                                    \PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Loyalty Club Only\PYZsq{}}
+                                                                    \PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Store Mailing List\PYZsq{}} \PY{p}{)} \PY{p}{)}
+                 \PY{p}{,} ZIP \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(} ZIP \PY{p}{)} 
+                             \PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Checking}\label{checking}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} str\PY{p}{(} df.train \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	2375 obs. of  12 variables:
+ \$ Name                      : chr  "Pamela Wright" "Danell Valdez" "Jessica Rinehart" "Nancy Clark" {\ldots}
+ \$ Customer\_Segment          : Factor w/ 4 levels "Credit Card Only",..: 4 4 4 4 4 4 4 4 4 4 {\ldots}
+ \$ Customer\_ID               : num  2 7 8 9 10 11 12 16 17 19 {\ldots}
+ \$ Address                   : chr  "376 S Jasmine St" "12066 E Lake Cir" "7225 S Gaylord St" "4497 Cornish Way" {\ldots}
+ \$ City                      : chr  "Denver" "Greenwood Village" "Centennial" "Denver" {\ldots}
+ \$ State                     : chr  "CO" "CO" "CO" "CO" {\ldots}
+ \$ ZIP                       : Factor w/ 86 levels "80002","80003",..: 60 26 31 74 45 50 51 1 15 12 {\ldots}
+ \$ Avg\_Sale\_Amount           : num  228 55 213 195 111 {\ldots}
+ \$ Store\_Number              : Factor w/ 10 levels "100","101","102",..: 1 6 2 6 1 7 9 4 8 3 {\ldots}
+ \$ Responded\_to\_Last\_Catalog : Factor w/ 2 levels "No response",..: 1 2 1 2 2 1 1 1 1 1 {\ldots}
+ \$ Avg\_Num\_Products\_Purchased: num  1 1 1 1 1 1 1 3 2 1 {\ldots}
+ \$ X.\_Years\_as\_Customer      : num  6 6 3 6 2 8 7 1 2 6 {\ldots}
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kp}{head}\PY{p}{(} df \PY{p}{)}
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kp}{table}\PY{p}{(} df.train\PY{o}{\PYZdl{}}ZIP \PY{p}{)}
 \end{Verbatim}
 
 
-    \begin{tabular}{r|llllllll}
- X & carat & cut & cut\_ord & color & clarity & clarity\_ord & price\\
-\hline
-	 1         & 0.51      & Premium   & 4         & F         & VS1       & 4         & 1749     \\
-	 2         & 2.25      & Fair      & 1         & G         & I1        & 1         & 7069     \\
-	 3         & 0.70      & Very Good & 3         & E         & VS2       & 5         & 2757     \\
-	 4         & 0.47      & Good      & 2         & F         & VS1       & 4         & 1243     \\
-	 5         & 0.30      & Ideal     & 5         & G         & VVS1      & 7         &  789     \\
-	 6         & 0.33      & Ideal     & 5         & D         & SI1       & 3         &  728     \\
-\end{tabular}
+    
+    \begin{verbatim}
 
+80002 80003 80004 80005 80007 80010 80011 80012 80013 80014 80015 80016 80017 
+   31    56    80    71     7    28    42    88   127    71    90    40    53 
+80018 80020 80021 80022 80023 80026 80027 80030 80031 80033 80108 80110 80111 
+    3    87    48    10    10     5    13    11    52    44     2    19    21 
+80112 80113 80120 80121 80122 80123 80124 80126 80127 80128 80129 80130 80134 
+   18    23    15    10    10    28     2     9    14    12     8     7    12 
+80138 80202 80203 80204 80205 80206 80207 80209 80210 80211 80212 80214 80215 
+   15    11    12    25    23    14    16    17    27    32    51    52    25 
+80216 80218 80219 80220 80221 80222 80223 80224 80226 80227 80228 80229 80230 
+    9    16    93    40    28    32    12    31    71    45    24    18    17 
+80231 80232 80233 80234 80235 80236 80237 80238 80239 80241 80246 80247 80249 
+   42    37    16    24    12    32    23     8     7    12    15    57     5 
+80260 80303 80305 80401 80403 80465 80602 80640 
+   14     2     1    17     6     7     4     1 
+    \end{verbatim}
 
     
+    \paragraph{Exploration of the linearity of each predictor against the
+target}\label{exploration-of-the-linearity-of-each-predictor-against-the-target}
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} ggplot\PY{p}{(} df\PY{p}{,} aes\PY{p}{(} x \PY{o}{=} carat\PY{p}{,} y \PY{o}{=} price \PY{p}{)} \PY{p}{)} \PY{o}{+}
-            geom\PYZus{}point\PY{p}{(} alpha \PY{o}{=} \PY{l+m}{0.3} \PY{p}{)} \PY{o}{+}
-            theme\PYZus{}bw\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}9}]:} ggplot\PY{p}{(} df.train \PY{p}{)} \PY{o}{+}
+            geom\PYZus{}point\PY{p}{(} aes\PY{p}{(} x \PY{o}{=} Avg\PYZus{}Num\PYZus{}Products\PYZus{}Purchased\PY{p}{,} y \PY{o}{=} Avg\PYZus{}Sale\PYZus{}Amount \PY{p}{)} \PY{p}{)} \PY{o}{+}
+            theme\PYZus{}classic\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \paragraph{Plot 2 - Plot the data for the diamonds for which you are
-predicting prices with carat on the x-axis and predicted price on the
-y-axis.}\label{plot-2---plot-the-data-for-the-diamonds-for-which-you-are-predicting-prices-with-carat-on-the-x-axis-and-predicted-price-on-the-y-axis.}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} ggplot\PY{p}{(} df.train \PY{p}{)} \PY{o}{+}
+             geom\PYZus{}point\PY{p}{(} aes\PY{p}{(} x \PY{o}{=} X.\PYZus{}Years\PYZus{}as\PYZus{}Customer\PY{p}{,} y \PY{o}{=} Avg\PYZus{}Sale\PYZus{}Amount \PY{p}{)} \PY{p}{)} \PY{o}{+}
+             theme\PYZus{}classic\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Unclear on this one. Assuming linearity.
+
+    \begin{itemize}
+\tightlist
+\item
+  It looks like the other continuous and count predictors have
+  approximately linear relationships with the target.
+\end{itemize}
+
+    \paragraph{Modeling}\label{modeling}
+
+    Due to the large number of levels for ZIP and a preliminary analysis
+that showed only two ZIP values as significant, both having very low
+counts (4 combined), I've removed ZIP initially to clean up the analysis
+document.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} df.new \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(} \PY{l+s}{\PYZsq{}}\PY{l+s}{../data/processed/new\PYZhy{}diamonds.csv\PYZsq{}} \PY{p}{)}
-        str\PY{p}{(} df.new \PY{p}{)}
+{\color{incolor}In [{\color{incolor}11}]:} fit.train \PY{o}{\PYZlt{}\PYZhy{}} lm\PY{p}{(} Avg\PYZus{}Sale\PYZus{}Amount
+                        \PY{o}{\PYZti{}} Customer\PYZus{}Segment
+                        \PY{o}{+} Store\PYZus{}Number
+                        \PY{o}{+} Avg\PYZus{}Num\PYZus{}Products\PYZus{}Purchased
+                        \PY{o}{+} X.\PYZus{}Years\PYZus{}as\PYZus{}Customer
+                        \PY{p}{,} data \PY{o}{=} df.train \PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-'data.frame':	3000 obs. of  7 variables:
- \$ X          : int  1 2 3 4 5 6 7 8 9 10 {\ldots}
- \$ carat      : num  1.22 1.01 0.71 1.01 0.27 0.52 1.01 0.59 1.01 2.03 {\ldots}
- \$ cut        : Factor w/ 5 levels "Fair","Good",..: 4 2 5 3 3 4 4 3 2 3 {\ldots}
- \$ cut\_ord    : int  4 2 3 5 5 4 4 5 2 5 {\ldots}
- \$ color      : Factor w/ 7 levels "D","E","F","G",..: 4 4 6 1 5 4 3 1 2 3 {\ldots}
- \$ clarity    : Factor w/ 8 levels "I1","IF","SI1",..: 3 6 6 4 8 5 3 3 3 4 {\ldots}
- \$ clarity\_ord: int  3 5 5 2 6 4 3 3 3 2 {\ldots}
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kp}{summary}\PY{p}{(} fit.train \PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = Avg_Sale_Amount ~ Customer_Segment + Store_Number + 
+    Avg_Num_Products_Purchased + X._Years_as_Customer, data = df.train)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-667.36  -67.18   -1.92   72.30  971.22 
+
+Coefficients:
+                                              Estimate Std. Error t value
+(Intercept)                                   324.9191    13.9690  23.260
+Customer_SegmentLoyalty Club and Credit Card  283.7500    11.9304  23.784
+Customer_SegmentLoyalty Club Only            -149.3427     8.9887 -16.615
+Customer_SegmentStore Mailing List           -245.7370     9.7806 -25.125
+Store_Number101                                -5.1124    11.2477  -0.455
+Store_Number102                                -6.5669    16.7433  -0.392
+Store_Number103                                -3.7806    11.9145  -0.317
+Store_Number104                               -20.3801    11.3109  -1.802
+Store_Number105                               -20.2236    10.9613  -1.845
+Store_Number106                               -17.3389    11.1836  -1.550
+Store_Number107                               -13.8498    11.9089  -1.163
+Store_Number108                               -11.4421    12.1707  -0.940
+Store_Number109                                -0.2266    13.0394  -0.017
+Avg_Num_Products_Purchased                     66.9284     1.5173  44.112
+X._Years_as_Customer                           -2.3980     1.2257  -1.956
+                                             Pr(>|t|)    
+(Intercept)                                    <2e-16 ***
+Customer_SegmentLoyalty Club and Credit Card   <2e-16 ***
+Customer_SegmentLoyalty Club Only              <2e-16 ***
+Customer_SegmentStore Mailing List             <2e-16 ***
+Store_Number101                                0.6495    
+Store_Number102                                0.6949    
+Store_Number103                                0.7510    
+Store_Number104                                0.0717 .  
+Store_Number105                                0.0652 .  
+Store_Number106                                0.1212    
+Store_Number107                                0.2450    
+Store_Number108                                0.3472    
+Store_Number109                                0.9861    
+Avg_Num_Products_Purchased                     <2e-16 ***
+X._Years_as_Customer                           0.0505 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 137.4 on 2360 degrees of freedom
+Multiple R-squared:  0.8377,	Adjusted R-squared:  0.8367 
+F-statistic: 869.8 on 14 and 2360 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \paragraph{Removing Store\_Number}\label{removing-store_number}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} fit.train \PY{o}{\PYZlt{}\PYZhy{}} lm\PY{p}{(} Avg\PYZus{}Sale\PYZus{}Amount
+                        \PY{o}{\PYZti{}} Customer\PYZus{}Segment
+                        \PY{o}{+} Avg\PYZus{}Num\PYZus{}Products\PYZus{}Purchased
+                        \PY{o}{+} X.\PYZus{}Years\PYZus{}as\PYZus{}Customer
+                        \PY{p}{,} data \PY{o}{=} df.train \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kp}{summary}\PY{p}{(} fit.train \PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = Avg_Sale_Amount ~ Customer_Segment + Avg_Num_Products_Purchased + 
+    X._Years_as_Customer, data = df.train)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-663.04  -68.42   -1.69   71.58  976.10 
+
+Coefficients:
+                                             Estimate Std. Error t value
+(Intercept)                                   313.760     11.861  26.454
+Customer_SegmentLoyalty Club and Credit Card  282.622     11.910  23.729
+Customer_SegmentLoyalty Club Only            -149.107      8.969 -16.625
+Customer_SegmentStore Mailing List           -245.483      9.762 -25.146
+Avg_Num_Products_Purchased                     67.018      1.514  44.255
+X._Years_as_Customer                           -2.340      1.223  -1.914
+                                             Pr(>|t|)    
+(Intercept)                                    <2e-16 ***
+Customer_SegmentLoyalty Club and Credit Card   <2e-16 ***
+Customer_SegmentLoyalty Club Only              <2e-16 ***
+Customer_SegmentStore Mailing List             <2e-16 ***
+Avg_Num_Products_Purchased                     <2e-16 ***
+X._Years_as_Customer                           0.0558 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 137.4 on 2369 degrees of freedom
+Multiple R-squared:  0.8371,	Adjusted R-squared:  0.8368 
+F-statistic:  2435 on 5 and 2369 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \paragraph{Removing X years as
+customer}\label{removing-x-years-as-customer}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} fit.train \PY{o}{\PYZlt{}\PYZhy{}} lm\PY{p}{(} Avg\PYZus{}Sale\PYZus{}Amount
+                        \PY{o}{\PYZti{}} Customer\PYZus{}Segment
+                        \PY{o}{+} Avg\PYZus{}Num\PYZus{}Products\PYZus{}Purchased
+                        \PY{p}{,} data \PY{o}{=} df.train \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kp}{summary}\PY{p}{(} fit.train \PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = Avg_Sale_Amount ~ Customer_Segment + Avg_Num_Products_Purchased, 
+    data = df.train)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-663.77  -67.31   -1.90   70.69  971.69 
+
+Coefficients:
+                                             Estimate Std. Error t value
+(Intercept)                                   303.463     10.576   28.69
+Customer_SegmentLoyalty Club and Credit Card  281.839     11.910   23.66
+Customer_SegmentLoyalty Club Only            -149.356      8.973  -16.64
+Customer_SegmentStore Mailing List           -245.418      9.768  -25.12
+Avg_Num_Products_Purchased                     66.976      1.515   44.21
+                                             Pr(>|t|)    
+(Intercept)                                    <2e-16 ***
+Customer_SegmentLoyalty Club and Credit Card   <2e-16 ***
+Customer_SegmentLoyalty Club Only              <2e-16 ***
+Customer_SegmentStore Mailing List             <2e-16 ***
+Avg_Num_Products_Purchased                     <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 137.5 on 2370 degrees of freedom
+Multiple R-squared:  0.8369,	Adjusted R-squared:  0.8366 
+F-statistic:  3040 on 4 and 2370 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \begin{itemize}
+\tightlist
+\item
+  All p.values for all retained variables are below 0.05, indicating
+  that they have significant impact on the target
+\item
+  The R-squared value of 0.8369 shows that there is decent predictive
+  performance from this model.
+\item
+  The proposed regression equation is: ( 281.84 * Loyalty Card and
+  Credit Card ) + ( -149.36 * Loyalty Club Only ) + ( -245.42 * Store
+  Mailing List ) + ( 66.98 * Average Number of Products Purchased ) +
+  303.463
+\end{itemize}
+
+    \newpage
+
+    \subsection{Section 3: Presentation and
+Visualization}\label{section-3-presentation-and-visualization}
+
+    \subsubsection{Score the new dataset}\label{score-the-new-dataset}
+
+    \paragraph{Score the new dataset with the accepted
+model}\label{score-the-new-dataset-with-the-accepted-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} df.pred\PY{o}{\PYZdl{}}Avg\PYZus{}Sale\PYZus{}Amount \PY{o}{\PYZlt{}\PYZhy{}} predict\PY{p}{(} fit.train\PY{p}{,} newdata \PY{o}{=} df.pred \PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Calculate the probable margin as revenue times probability of
+responding}\label{calculate-the-probable-margin-as-revenue-times-probability-of-responding}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} df.pred\PY{o}{\PYZdl{}}prob\PYZus{}margin \PY{o}{\PYZlt{}\PYZhy{}} df.pred\PY{o}{\PYZdl{}}Score\PYZus{}Yes \PY{o}{*} df.pred\PY{o}{\PYZdl{}}Avg\PYZus{}Sale\PYZus{}Amount
+\end{Verbatim}
+
+
+    \paragraph{Calculate the net margin and
+revenue}\label{calculate-the-net-margin-and-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} df.pred\PY{o}{\PYZdl{}}net\PYZus{}margin \PY{o}{\PYZlt{}\PYZhy{}} df.pred\PY{o}{\PYZdl{}}prob\PYZus{}margin\PY{o}{/} \PY{l+m}{2}
+         df.pred\PY{o}{\PYZdl{}}revenue \PY{o}{\PYZlt{}\PYZhy{}} df.pred\PY{o}{\PYZdl{}}net\PYZus{}margin \PY{o}{\PYZhy{}} \PY{l+m}{6.50}
+\end{Verbatim}
+
+
+    \paragraph{Check new dataset}\label{check-new-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kp}{head}\PY{p}{(} df.pred \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llllllllllllllll}
+ Name & Customer\_Segment & Customer\_ID & Address & City & State & ZIP & Store\_Number & Avg\_Num\_Products\_Purchased & X.\_Years\_as\_Customer & Score\_No & Score\_Yes & Avg\_Sale\_Amount & prob\_margin & net\_margin & revenue\\
+\hline
+	 A Giametti                   & Loyalty Club Only            & 2213                         & 5326 S Lisbon Way            & Centennial                   & CO                           & 80015                        & 105                          & 3                            & 0.2                          & 0.6949642                    & 0.3050358                    & 355.0364                     & 108.29880                    &  54.14940                    &  47.64940                   \\
+	 Abby Pierson                 & Loyalty Club and Credit Card & 2785                         & 4344 W Roanoke Pl            & Denver                       & CO                           & 80236                        & 101                          & 6                            & 0.6                          & 0.5272755                    & 0.4727245                    & 987.1595                     & 466.65450                    & 233.32725                    & 226.82725                   \\
+	 Adele Hallman                & Loyalty Club Only            & 2931                         & 5219 S Delaware St           & Englewood                    & CO                           & 80110                        & 101                          & 7                            & 0.9                          & 0.4211182                    & 0.5788819                    & 622.9412                     & 360.60934                    & 180.30467                    & 173.80467                   \\
+	 Alejandra Baird              & Loyalty Club Only            & 2231                         & 2301 Lawrence St             & Denver                       & CO                           & 80205                        & 103                          & 2                            & 0.6                          & 0.6948622                    & 0.3051378                    & 288.0602                     &  87.89805                    &  43.94902                    &  37.44902                   \\
+	 Alice Dewitt                 & Loyalty Club Only            & 2530                         & 5549 S Hannibal Way          & Centennial                   & CO                           & 80015                        & 104                          & 4                            & 0.5                          & 0.6122941                    & 0.3877059                    & 422.0126                     & 163.61674                    &  81.80837                    &  75.30837                   \\
+	 Amanda Donahoe               & Credit Card Only             & 1946                         & 10093 E Warren Ave           & Denver                       & CO                           & 80247                        & 105                          & 7                            & 0.7                          & 0.7327217                    & 0.2672783                    & 772.2969                     & 206.41820                    & 103.20910                    &  96.70910                   \\
+\end{tabular}
+
+
+    
+    \paragraph{Calculate predicted ROI using the sum of the probable
+margin}\label{calculate-predicted-roi-using-the-sum-of-the-probable-margin}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kp}{sum}\PY{p}{(} df.pred\PY{o}{\PYZdl{}}revenue \PY{p}{)}
+\end{Verbatim}
+
+
+    21987.4356865454
+
+    
+    \subsubsection{What is my
+recommendation?:}\label{what-is-my-recommendation}
+
+My recommendation is to send the catalog.
+
+    \subsubsection{How did I come up with my
+recommendation?:}\label{how-did-i-come-up-with-my-recommendation}
+
+As shown above, I used the model built in section 2 to score the mailing
+list participants for predicted revenue. I then multiplied the predicted
+revenue by the probability of responding for each customer. I then
+summed the result.
+
+    \subsubsection{What is the expected profit from the new catalog
+(assuming the catalog is sent to these 250
+customers)?}\label{what-is-the-expected-profit-from-the-new-catalog-assuming-the-catalog-is-sent-to-these-250-customers}
+
+The expected profit from the new catalog send is: \$21,987.44.
+
+    \paragraph{Extras:}\label{extras}
+
+Show the distributions of all variables:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} ggpairs\PY{p}{(} df.train\PY{p}{[}\PY{p}{,}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{8}\PY{o}{:}\PY{l+m}{12}\PY{p}{)}\PY{p}{]} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat\_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
     \end{Verbatim}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{attach}\PY{p}{(} df.new \PY{p}{)}
-        df.new\PY{o}{\PYZdl{}}price \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{\PYZhy{}5269} \PY{o}{+} \PY{p}{(} \PY{l+m}{8413} \PY{o}{*} carat \PY{p}{)} \PY{o}{+} \PY{p}{(} \PY{l+m}{158.1} \PY{o}{*} cut\PYZus{}ord \PY{p}{)} \PY{o}{+} \PY{p}{(} \PY{l+m}{454} \PY{o}{*} clarity\PYZus{}ord \PY{p}{)}
-        \PY{k+kp}{head}\PY{p}{(} df.new \PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{tabular}{r|llllllll}
- X & carat & cut & cut\_ord & color & clarity & clarity\_ord & price\\
-\hline
-	 1         & 1.22      & Premium   & 4         & G         & SI1       & 3         & 6989.26  \\
-	 2         & 1.01      & Good      & 2         & G         & VS2       & 5         & 5814.33  \\
-	 3         & 0.71      & Very Good & 3         & I         & VS2       & 5         & 3448.53  \\
-	 4         & 1.01      & Ideal     & 5         & D         & SI2       & 2         & 4926.63  \\
-	 5         & 0.27      & Ideal     & 5         & H         & VVS2      & 6         &  517.01  \\
-	 6         & 0.52      & Premium   & 4         & G         & VS1       & 4         & 1554.16  \\
-\end{tabular}
-
-
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}10}]:} ggplot\PY{p}{(}\PY{p}{)} \PY{o}{+}
-             geom\PYZus{}point\PY{p}{(} data \PY{o}{=} df.new\PY{p}{,} aes\PY{p}{(} x \PY{o}{=} carat\PY{p}{,} y \PY{o}{=} price \PY{p}{)}\PY{p}{,} alpha \PY{o}{=} \PY{l+m}{0.2} \PY{p}{)} \PY{o}{+}
-             theme\PYZus{}bw\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
     
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_2.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \subsubsection{Show both plots combined}\label{show-both-plots-combined}
+    \paragraph{Would I need to go back and get more data from my
+manger?}\label{would-i-need-to-go-back-and-get-more-data-from-my-manger}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}18}]:} df\PY{o}{\PYZdl{}}type \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{Original\PYZsq{}}
-         df.new\PY{o}{\PYZdl{}}type \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{Predicted\PYZsq{}}
-         
-         df.c \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rbind}\PY{p}{(} df\PY{p}{,} df.new \PY{p}{)}
-         df.c\PY{o}{\PYZdl{}}type \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(} df.c\PY{o}{\PYZdl{}}type \PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kp}{head}\PY{p}{(} df.c \PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{tabular}{r|lllllllll}
- X & carat & cut & cut\_ord & color & clarity & clarity\_ord & price & type\\
-\hline
-	 1         & 0.51      & Premium   & 4         & F         & VS1       & 4         & 1749      & Original \\
-	 2         & 2.25      & Fair      & 1         & G         & I1        & 1         & 7069      & Original \\
-	 3         & 0.70      & Very Good & 3         & E         & VS2       & 5         & 2757      & Original \\
-	 4         & 0.47      & Good      & 2         & F         & VS1       & 4         & 1243      & Original \\
-	 5         & 0.30      & Ideal     & 5         & G         & VVS1      & 7         &  789      & Original \\
-	 6         & 0.33      & Ideal     & 5         & D         & SI1       & 3         &  728      & Original \\
-\end{tabular}
-
-
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}20}]:} ggplot\PY{p}{(} df.c\PY{p}{,} aes\PY{p}{(} x \PY{o}{=} carat\PY{p}{,} y \PY{o}{=} price\PY{p}{,} colour \PY{o}{=} type \PY{p}{)} \PY{p}{)} \PY{o}{+}
-                geom\PYZus{}point\PY{p}{(} alpha \PY{o}{=} \PY{l+m}{0.2} \PY{p}{)} \PY{o}{+}
-                theme\PYZus{}bw\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    
-    
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \paragraph{What strikes you about this comparison? After seeing this
-plot, do you feel confident in the model's ability to predict
-prices?}\label{what-strikes-you-about-this-comparison-after-seeing-this-plot-do-you-feel-confident-in-the-models-ability-to-predict-prices}
-
-    It strikes me that the model is not a great fit for the original data.
-The model assumes linearity whereas the observed data seems to have some
-curvature. I believe the model will overbid prices for diamonds around
-.7 to 1 carat and underbid prices for diamonds above 1 carat. So no, I
-don't feel confident in the models ability to accurately predict prices.
-Other models would be better fits for these data.
-
-    \subsection{Step 3: Make a
-Recommendation}\label{step-3-make-a-recommendation}
-
-    \paragraph{What price do you recommend the jewelry company to bid?
-Please explain how you arrived at that number. HINT: The number should
-be 7
-digits.}\label{what-price-do-you-recommend-the-jewelry-company-to-bid-please-explain-how-you-arrived-at-that-number.-hint-the-number-should-be-7-digits.}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}22}]:} sum \PY{p}{(} df.new\PY{o}{\PYZdl{}}price \PY{p}{)} \PY{o}{*} \PY{l+m}{0.7}
-\end{Verbatim}
-
-
-    8213465.932
-
-    
-    Using the linear model provided, I would recommend the jewelry company
-bidding \$8,213,465.93 for the diamonds. This number is the sum of the
-predicted prices of the new diamonds times the wholesale discount at
-70\%.
+While the model built has decent performance with a multiple R-squared
+of 0.837, more data could possibly improve the accuracy of the predicted
+revenue. In this case, with the decision threshold at \$10,000 and the
+predicted revenue of more than two times the threshold at \$21,987.44, I
+don't believe we would need to go back to my manager for more data in
+order to make this recommendation to send the catalog.
 
 
     % Add a bibliography block to the postdoc
