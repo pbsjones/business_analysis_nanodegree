@@ -17,3 +17,5 @@
 *.dbf
 
 *.yxmd
+
+*.sqlite3

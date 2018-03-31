@@ -1,0 +1,72 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+```{r}
+library( tidyverse )
+library( lubridate )
+```
+
+```{r}
+df.inv <- read.csv('../data/3_total_by_country.csv')
+df.ord <- read.csv('../data/3_ordercnt_by_uk_customer.csv')
+df.sal <- read.csv('../data/3_invoice_per_year_per_cust.csv')
+df.shp <- read.csv('../data/3_shipped_month.csv')
+```
+
+```{r}
+str( df.sal )
+
+df.sal$OrderMonth <- ymd( df.sal$OrderMonth )
+df.shp$ShippedMonth <- ymd( df.shp$ShippedMonth )
+```
+
+```{r 1 }
+options( scipen = 4  )
+
+ggplot( df.inv, aes( x = reorder( ShipCountry, total_invoice_amt ), y = total_invoice_amt ) ) +
+  geom_bar( stat = 'identity' ) +
+  coord_flip() +
+  xlab( 'Countries' ) +
+  ylab( 'Total invoice amount' ) +
+  ggtitle( 'Total invoice amount by country' ) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = 18))
+```
+
+```{r 2 }
+ggplot( df.ord, aes( x = reorder( c.CompanyName, orderCount ), y = orderCount ) ) +
+  geom_bar( stat = 'identity' ) +
+  coord_flip() +
+  ggtitle( 'Order count for all UK customers' ) +
+  xlab( 'Customer' ) +
+  ylab( 'Order count' ) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = 18))
+```
+
+```{r 3 }
+ggplot( droplevels( df.sal[!is.na(df.sal$total_invoice_amt),] ), aes( x = factor( format( OrderMonth, '%Y' ) ), y = total_invoice_amt / 1000, fill = factor( format( OrderMonth, '%Y' ) ) ) ) +
+  geom_bar( stat = 'identity', position = "dodge" ) +
+  facet_wrap( ~Country, nrow = 4 ) +
+  # coord_flip() +
+  ggtitle( 'Total invoice amount per country per year' ) +
+  xlab( 'Years' ) +
+  ylab( 'Total invoice amount in thousands' ) +
+  labs( fill = "Years" ) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = 18))
+```
+
+```{r 4 }
+ggplot( df.shp[1:nrow(df.shp)-1,], aes( x = ShippedMonth, y = ShippedCount ) ) +
+  geom_line() +
+  ggtitle( 'Total of shipments over time for all countries' ) +
+  xlab( 'Months' ) +
+  ylab( 'Count of shipments' ) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = 18))
+```
+
