@@ -19,3 +19,6 @@
 *.yxmd
 
 *.sqlite3
+
+*.twb
+*.twbr
