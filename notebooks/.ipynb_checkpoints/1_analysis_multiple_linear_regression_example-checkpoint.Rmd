@@ -1,0 +1,121 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r libraries }
+library(tidyverse)
+```
+
+```{r data }
+df <- readxl::read_excel('../data/raw/linear-example-data_2.xlsx')
+```
+
+```{r}
+head( df )
+```
+
+```{r}
+names( df ) <- c( 'ticket_amt_no'
+                  , 'employee_amt_no'
+                  , 'contract_value_no'
+                  , 'industry_txt' )
+```
+
+
+```{r}
+ggplot() +
+  geom_point( data = df
+              , aes( x = contract_value_no
+                     , y = ticket_amt_no ) ) +
+  theme_classic()
+```
+
+```{r}
+fit <- lm( df$ticket_amt_no
+    ~ df$contract_value_no )
+```
+
+```{r}
+summary( fit )
+```
+
+```{r}
+a <- c( 0:100000 )
+b <- ( 0.001201 * a ) -27.48
+df.line <- data.frame( cbind( a, b ) )
+```
+
+```{r}
+ggplot() +
+  geom_point( data = df, aes( x = contract_value_no, y = ticket_amt_no ) ) +
+  geom_line( data = df.line, aes( x = a, y = b ) ) +
+  theme_classic()
+```
+
+```{r}
+fit <- lm( ticket_amt_no
+     ~ employee_amt_no
+     + contract_value_no
+     , data = df )
+```
+
+```{r}
+summary( fit )
+```
+
+```{r}
+summary( fit )$r.squared
+```
+
+
+```{r}
+df$t_pred <- ( 0.1019 * df$employee_amt_no ) + ( 0.0006684 * df$contract_value_no ) - 24.27
+```
+
+```{r}
+head(df)
+```
+
+```{r}
+ggplot() +
+  geom_point( data = df, aes( x = ticket_amt_no, y = t_pred ) ) +
+  theme_classic()
+```
+
+```{r}
+( 0.1019 * 750 ) + ( 0.0006684 * 13000) - 24.27
+```
+
+```{r}
+fit <- lm( df$ticket_amt_no
+    ~ df$employee_amt_no )
+```
+
+```{r}
+ggplot() +
+  geom_point( data = fit, aes( x = predict( fit ), y = df$ticket_amt_no ) ) +
+  geom_smooth( data = fit, aes( x = predict( fit ), y = df$ticket_amt_no ), se = FALSE, method = 'lm' ) +
+  geom_line( aes( x = 0:100, y = 0:100 ) )  +
+  theme_classic()
+```
+
+```{r}
+-468 + (0.067 * 5889) + (1349 * 0.318) - (14.4 * 0) - (9.3 * 0) + (16.5 * 0)
+```
+
+```{r}
+(-18.45 ) + ( 0.1116 * 732 ) + (0.0004858 * 825000 ) + ( 1 * 12.49 )
+```
+
+```{r}
+23 * 125
+```
+
+```{r}
+477 - 75
+```
+
+```{r}
+402 / 125
+```
+
