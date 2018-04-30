@@ -1,0 +1,577 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2018.1">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>RoundRoastersTransactions.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="StoreID" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="Invoice Number" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="Invoice Date" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="SKU" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="Category" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="Product" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="QTY" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="Size" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="Gross Margin" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+            <Field name="Sales" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\RoundRoastersTransactions.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Invoice Date" selected="True" type="Date" size="10" />
+            <SelectField field="QTY" selected="True" type="Int16" size="2" />
+            <SelectField field="Gross Margin" selected="True" type="Double" size="8" />
+            <SelectField field="Sales" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="234" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Invoice Date] &gt;= "2015-03-18" AND  [Invoice Date] &lt;= "2016-07-21"</Expression>
+          <Mode>Custom</Mode>
+          <Simple>
+            <Operator>DateRange</Operator>
+            <Field>Invoice Date</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2018-04-18 17:51:55</PeriodDate>
+              <PeriodType>days</PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2015-04-29</StartDate>
+              <EndDate>2015-07-21</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Baseline data</AnnotationText>
+          <DefaultAnnotationText>[Invoice Date] &gt;= "2015-03-18" AND  [Invoice Date] &lt;= "2016-07-21"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="342" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="FLOOR(DateTimeDiff([Invoice Date],&quot;2015-03-18&quot;,'days')/7+1)" field="Week" size="8" type="Int64" />
+            <FormulaField expression="DateTimeAdd('2015-03-18',7*([Week]-1),'days')" field="Week_Start" size="10" type="Date" />
+            <FormulaField expression="DateTimeAdd([Week_Start],6,'days')" field="Week_End" size="10" type="Date" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Week = FLOOR(DateTimeDiff([Invoice Date],"2015-03-18",'days')/7+1)
+Week_Start = ...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="294" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>round-roaster-stores.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="StoreID" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Sq_Ft" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="AvgMonthSales" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Right_Name" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Phone Number" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Street Combined" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Street 1" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Street 2" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Street 3" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="State" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Postal Code" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Region" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Country" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Coordinates" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Latitude" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Longitude" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Timezone" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Current Timezone Offset" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+            <Field name="Olson Timezone" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\round-roaster-stores.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="294" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>treatment-stores.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="StoreID" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Sq_Ft" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="AvgMonthSales" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Phone Number" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Street Combined" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Street 1" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Street 2" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Street 3" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Postal Code" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Region" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Country" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Coordinates" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Latitude" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Longitude" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Timezone" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Current Timezone Offset" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Olson Timezone" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Name" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+            <Field name="Right_State" size="254" source="File: C:\Users\gvasc\Google Drive\dev\business_analyst_nanodegree\data\5_abtest\treatment-stores.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="486" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="StoreID" selected="True" />
+            <SelectField field="Sq_Ft" selected="True" type="Double" size="8" />
+            <SelectField field="AvgMonthSales" selected="True" type="Double" size="8" />
+            <SelectField field="State" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="390" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="StoreID" selected="True" />
+            <SelectField field="Sq_Ft" selected="True" type="Double" size="8" />
+            <SelectField field="AvgMonthSales" selected="True" type="Double" size="8" />
+            <SelectField field="Right_State" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="390" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>Contains([State],"CO") OR Contains([State],"IL")</Expression>
+          <Mode>Custom</Mode>
+          <Simple>
+            <Operator>Contains</Operator>
+            <Field>State</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2018-04-24 18:41:33</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand><![CDATA[CO ]]></Operand>
+              <StartDate>2018-04-24 18:41:33</StartDate>
+              <EndDate>2018-04-24 18:41:33</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Filter stores to only CO and IL</AnnotationText>
+          <DefaultAnnotationText>Contains([State],"CO") OR Contains([State],"IL")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="582" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IIF([State]=&quot;CO&quot;, 1, 0)" field="CO_FLG" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[CO_FLG = IIF([State]="CO", 1, 0)
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="582" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IIF([Right_State]=&quot;CO&quot;, 1, 0)" field="CO_FLG" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[CO_FLG = IIF([Right_State]="CO", 1, 0)
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="582" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Invoice Number" action="CountDistinctNonNull" rename="TRANS_CNT" />
+            <SummarizeField field="StoreID" action="GroupBy" rename="StoreID" />
+            <SummarizeField field="Week" action="GroupBy" rename="Week" />
+            <SummarizeField field="Week_Start" action="GroupBy" rename="Week_Start" />
+            <SummarizeField field="Week_End" action="GroupBy" rename="Week_End" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="462" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Invoice Number" action="GroupBy" rename="Invoice Number" />
+            <SummarizeField field="Gross Margin" action="Sum" rename="Sum_Gross Margin" />
+            <SummarizeField field="Sales" action="Sum" rename="Sum_Sales" />
+            <SummarizeField field="Week" action="GroupBy" rename="Week" />
+            <SummarizeField field="Week_Start" action="GroupBy" rename="Week_Start" />
+            <SummarizeField field="Week_End" action="GroupBy" rename="Week_End" />
+            <SummarizeField field="StoreID" action="GroupBy" rename="StoreID" />
+            <SummarizeField field="Invoice Date" action="GroupBy" rename="Invoice Date" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="558" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Week" action="GroupBy" rename="Week" />
+            <SummarizeField field="Week_Start" action="GroupBy" rename="Week_Start" />
+            <SummarizeField field="Week_End" action="GroupBy" rename="Week_End" />
+            <SummarizeField field="StoreID" action="GroupBy" rename="StoreID" />
+            <SummarizeField field="Invoice Number" action="Count" rename="Trans_cnt" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="702" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="StoreID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="StoreID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_StoreID" selected="True" rename="Right_StoreID" />
+                <SelectField field="Right_Sq_Ft" selected="True" rename="Right_Sq_Ft" />
+                <SelectField field="Right_AvgMonthSales" selected="True" rename="Right_AvgMonthSales" />
+                <SelectField field="Right_CO_FLG" selected="True" rename="Right_CO_FLG" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="786" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>IsNull([Right_StoreID])</Expression>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsNull</Operator>
+            <Field>Right_StoreID</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2018-04-24 19:59:17</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2018-04-24 19:59:17</StartDate>
+              <EndDate>2018-04-24 19:59:17</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IsNull([Right_StoreID])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="True" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="True" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="48" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="48" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="45" Connection="Output" />
+      <Destination ToolID="47" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Join" />
+      <Destination ToolID="49" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>5_abtest_project</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
